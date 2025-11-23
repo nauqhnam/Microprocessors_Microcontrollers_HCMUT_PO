@@ -1,0 +1,2 @@
+button.c:15:5:isButtonNoPressed	16	static
+button.c:23:6:buttonRead	16	static

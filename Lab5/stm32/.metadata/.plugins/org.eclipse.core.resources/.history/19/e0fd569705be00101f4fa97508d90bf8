@@ -1,0 +1,14 @@
+#include "fsm.h"
+#include "time.h"
+#include <stdio.h>
+#include <string.h>
+
+extern UART_HandleTypeDef huart2;
+extern ADC_HandleTypeDef hadc1;
+extern uint8_t temp;
+
+int command_flag = 0; // 1: !RST#, 2: !OK#
+int is_sending = 0;
+uint32_t adc_value = 0;
+
+

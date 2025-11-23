@@ -1,0 +1,21 @@
+/*
+ * time.h
+ *
+ *  Created on: Nov 9, 2025
+ *      Author: Admin
+ */
+
+#ifndef INC_TIME_H_
+#define INC_TIME_H_
+
+#include "stm32f1xx_hal.h"
+
+extern int timer1_flag;
+extern int timer2_flag;
+
+void setTimer1(int duration);
+void setTimer2(int duration);
+void timerRun(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+
+#endif /* INC_TIME_H_ */

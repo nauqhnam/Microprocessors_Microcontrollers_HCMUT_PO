@@ -1,0 +1,13 @@
+/*
+ * command_parser_fsm.h
+ *
+ *  Created on: Nov 10, 2025
+ *      Author: ASUS
+ */
+
+#ifndef INC_COMMAND_PARSER_FSM_H_
+#define INC_COMMAND_PARSER_FSM_H_
+
+void command_parser_fsm(void);
+
+#endif /* INC_COMMAND_PARSER_FSM_H_ */

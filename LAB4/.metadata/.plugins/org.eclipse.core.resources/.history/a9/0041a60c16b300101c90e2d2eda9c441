@@ -1,0 +1,65 @@
+/*
+ * tasks.c
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+#include "main.h"
+#include "tasks.h"
+#include "string.h"
+
+void task_white (void){
+    HAL_GPIO_TogglePin(led_white_GPIO_Port, led_white_Pin);
+    char msg[] = "White task executed\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+void task_pink (void){
+    HAL_GPIO_TogglePin(led_pink_GPIO_Port, led_pink_Pin);
+
+    char msg[] = "PINKpanther task executed\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+void task_red(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 1);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 0);
+
+	HAL_GPIO_TogglePin(GPIOA, led_red_Pin);
+    char msg[] = "RED task executed\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+
+void task_yellow(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 1);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 0);
+
+	HAL_GPIO_TogglePin(GPIOA, led_yellow_Pin);
+    char msg[] = "Yellow task executed\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+
+void task_green(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 1);
+
+	HAL_GPIO_TogglePin(GPIOA, led_green_Pin);
+    char msg[] = "Green task executed\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+void task_led(void)
+{
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+}
+
+

@@ -1,0 +1,30 @@
+/*
+ * command_parser_fsm.c
+ *
+ *  Created on: Nov 10, 2025
+ *      Author: ASUS
+ */
+
+#ifndef SRC_COMMAND_PARSER_FSM_C_
+#define SRC_COMMAND_PARSER_FSM_C_
+
+
+uint8_t command_flag = 0;   // 1=RST, 2=OK
+uint32_t adcValue = 0;
+
+void command_parser_fsm(void){
+  if (!frame_ready) return;
+
+  if (strcmp((char*)buffer, "!RST#") == 0){
+    command_flag = 1;
+  }
+  else if (strcmp((char*)buffer, "!OK#") == 0){
+    command_flag = 2;
+  }
+
+  frame_ready = 0;
+  buffer_index = 0;
+}
+
+
+#endif /* SRC_COMMAND_PARSER_FSM_C_ */

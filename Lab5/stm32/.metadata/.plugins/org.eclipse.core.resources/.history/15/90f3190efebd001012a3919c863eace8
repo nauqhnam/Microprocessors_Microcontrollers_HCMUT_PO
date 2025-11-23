@@ -1,0 +1,35 @@
+/*
+ * uart_comm_fsm.c
+ *
+ *  Created on: Nov 10, 2025
+ *      Author: ASUS
+ */
+
+
+// FSM gửi với timer nội bộ
+static uint8_t   waiting_ack = 0;
+static uint32_t  deadline_ms = 0;
+static char      last_packet[32];
+
+void uart_communicate_fsm(void){
+  // 1) Nếu nhận RST -> gửi gói và bắt đầu chờ ACK
+  if (command_flag == 1 && waiting_ack == 0){
+    snprintf(last_packet, sizeof(last_packet), "!ADC=%lu#\r\n", (unsigned long)adcValue);
+    HAL_UART_Transmit(&huart2, (uint8_t*)last_packet, strlen(last_packet), 100);
+    waiting_ack = 1;
+    deadline_ms = HAL_GetTick() + 3000;    // 3s
+    command_flag = 0;                       // tiêu thụ lệnh RST
+  }
+
+  // 2) Nếu vừa nhận OK (parser đã set buffer = "!OK#")
+  if (frame_ready && strcmp((char*)buffer, "!OK#") == 0){
+    waiting_ack = 0;                        // dừng chờ
+    frame_ready = 0; buffer_index = 0;
+  }
+
+  // 3) Timeout -> resend
+  if (waiting_ack && (int32_t)(HAL_GetTick() - deadline_ms) >= 0){
+    HAL_UART_Transmit(&huart2, (uint8_t*)last_packet, strlen(last_packet), 100);
+    deadline_ms = HAL_GetTick() + 3000;
+  }
+}

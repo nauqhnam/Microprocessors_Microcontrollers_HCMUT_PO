@@ -1,0 +1,45 @@
+/*
+ * tasks.c
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+
+#include "tasks.h"
+
+void task_white (void){
+    HAL_GPIO_TogglePin(led_0_GPIO_Port, led_0_Pin);
+}
+void task_2(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 1);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 0);
+
+	HAL_GPIO_TogglePin(GPIOA, led_red_Pin);
+}
+
+void task_yellow(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 1);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 0);
+
+	HAL_GPIO_TogglePin(GPIOA, led_yellow_Pin);
+}
+
+void task_green(void)
+{
+//	HAL_GPIO_WritePin(GPIOA, red_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, yellow_led_Pin, 0);
+//	HAL_GPIO_WritePin(GPIOA, green_led_Pin, 1);
+
+	HAL_GPIO_TogglePin(GPIOA, led_green_Pin);
+}
+void task_led(void)
+{
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+}
+
+

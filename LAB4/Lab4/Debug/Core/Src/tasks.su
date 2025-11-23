@@ -1,0 +1,7 @@
+tasks.c:13:5:_write	24	static
+tasks.c:19:6:task_white	8	static
+tasks.c:24:6:task_pink	8	static
+tasks.c:32:6:task_red	8	static
+tasks.c:39:6:task_yellow	8	static
+tasks.c:46:6:task_green	8	static
+tasks.c:51:6:task_led	8	static

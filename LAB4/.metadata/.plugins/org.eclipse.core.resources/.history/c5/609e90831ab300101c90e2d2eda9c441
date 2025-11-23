@@ -1,0 +1,70 @@
+/*
+ * tasks.c
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+#include "main.h"
+#include "tasks.h"
+#include "string.h"
+extern UART_HandleTypeDef huart1;
+
+void task_white (void){
+    HAL_GPIO_TogglePin(led_white_GPIO_Port, led_white_Pin);
+    char msg[50];
+        uint32_t time = HAL_GetTick();
+        sprintf(msg, "White task executed at %lu ms\r\n", time);
+
+        HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+}
+void task_pink (void){
+    HAL_GPIO_TogglePin(led_pink_GPIO_Port, led_pink_Pin);
+
+    char msg[50];
+        uint32_t time = HAL_GetTick();
+        sprintf(msg, "Pink executed at %lu ms\r\n", time);
+
+        HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+
+void task_red(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_red_Pin);
+	char msg[50];
+	    uint32_t time = HAL_GetTick();
+	    sprintf(msg, "Red task executed at %lu ms\r\n", time);
+
+	    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+}
+
+void task_yellow(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_yellow_Pin);
+	char msg[50];
+		    uint32_t time = HAL_GetTick();
+		    sprintf(msg,"Yelllow task executed at %lu ms\r\n",time);
+
+		    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
+
+
+}
+
+void task_green(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_green_Pin);
+	char msg[50];
+			    uint32_t time = HAL_GetTick();
+			    sprintf(msg,"Green task executed at %lu ms\r\n",time);
+
+			    HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);), 100);
+
+}
+void task_led(void)
+{
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+}
+
+

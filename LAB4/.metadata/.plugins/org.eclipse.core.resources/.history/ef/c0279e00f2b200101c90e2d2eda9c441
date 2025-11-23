@@ -1,0 +1,121 @@
+/*
+ * schedule.c
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+
+#include "schedule.h"
+
+uint8_t currentTasks = 0;
+uint32_t ERROR_CODE_G = 0;
+Tasks taskList[SCH_MAX_TASKS];
+
+void SCH_Init(void) {
+deleteAllTasks();
+currentTasks = 0;
+
+
+HAL_GPIO_WritePin(led_0_GPIO_Port, led_0_Pin, GPIO_PIN_SET);
+HAL_GPIO_WritePin(led_red_GPIO_Port, led_red_Pin, GPIO_PIN_SET);
+HAL_GPIO_WritePin(led_yellow_GPIO_Port, led_yellow_Pin, GPIO_PIN_SET);
+HAL_GPIO_WritePin(led_green_GPIO_Port, led_green_Pin, GPIO_PIN_SET);
+HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+
+
+}
+
+uint32_t SCH_Add_Task(void (*task)(void), uint32_t delay, uint32_t period) {
+if (currentTasks == SCH_MAX_TASKS) {
+ERROR_CODE_G = ERROR_SCH_TOO_MANY_TASKS;
+return ERROR_CODE_G;
+}
+
+
+taskList[currentTasks].funcPtr = task;
+taskList[currentTasks].delay = delay;
+taskList[currentTasks].period = period;
+taskList[currentTasks].runme = 0;
+taskList[currentTasks].taskID = currentTasks;
+taskList[currentTasks].isEmpty = false;
+taskList[currentTasks].isOneShot = (period == 0);
+
+currentTasks++;
+return currentTasks;
+
+
+}
+
+void SCH_Update(void) {
+for (int i = 0; i < SCH_MAX_TASKS; i++) {
+if (!taskList[i].isEmpty && taskList[i].delay > 0) {
+taskList[i].delay--;
+if (taskList[i].delay == 0) {
+taskList[i].runme++;
+taskList[i].delay = taskList[i].period;
+}
+}
+}
+}
+
+void SCH_Dispatch_Tasks(void) {
+for (int i = 0; i < SCH_MAX_TASKS; i++) {
+if (!taskList[i].isEmpty && taskList[i].runme > 0) {
+taskList[i].runme--;
+(*taskList[i].funcPtr)();
+
+
+        if (taskList[i].isOneShot) {
+            SCH_Delete_Task(taskList[i].taskID);
+        }
+    }
+}
+
+
+}
+
+uint32_t SCH_Delete_Task(uint32_t taskID) {
+if (taskID >= SCH_MAX_TASKS) {
+ERROR_CODE_G = ERROR_SCH_INVALID_INDEX;
+return ERROR_CODE_G;
+}
+
+
+if (taskList[taskID].isEmpty || taskList[taskID].funcPtr == NULL) {
+    ERROR_CODE_G = ERROR_SCH_INVALID_INDEX;
+    return ERROR_CODE_G;
+}
+
+for (int i = taskID; i < SCH_MAX_TASKS - 1; i++) {
+    taskList[i] = taskList[i + 1];
+    taskList[i].taskID = i;
+}
+
+taskList[SCH_MAX_TASKS - 1].funcPtr = NULL;
+taskList[SCH_MAX_TASKS - 1].delay = 0;
+taskList[SCH_MAX_TASKS - 1].period = 0;
+taskList[SCH_MAX_TASKS - 1].runme = 0;
+taskList[SCH_MAX_TASKS - 1].taskID = 0;
+taskList[SCH_MAX_TASKS - 1].isEmpty = true;
+taskList[SCH_MAX_TASKS - 1].isOneShot = false;
+
+if (currentTasks > 0) currentTasks--;
+
+return taskID;
+
+
+}
+
+void deleteAllTasks(void) {
+for (int i = 0; i < SCH_MAX_TASKS; i++) {
+taskList[i].funcPtr = NULL;
+taskList[i].delay = 0;
+taskList[i].period = 0;
+taskList[i].runme = 0;
+taskList[i].taskID = 0;
+taskList[i].isEmpty = true;
+taskList[i].isOneShot = false;
+}
+currentTasks = 0;
+}

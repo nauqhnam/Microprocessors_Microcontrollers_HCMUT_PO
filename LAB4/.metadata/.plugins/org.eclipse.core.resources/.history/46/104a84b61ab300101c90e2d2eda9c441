@@ -1,0 +1,55 @@
+/*
+ * tasks.c
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+#include "main.h"
+#include "tasks.h"
+#include "string.h"
+extern UART_HandleTypeDef huart1;
+int _write(int file, char *ptr, int len)
+{
+  HAL_UART_Transmit(&huart1, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+  return len;
+}
+
+void task_white (void){
+    HAL_GPIO_TogglePin(led_white_GPIO_Port, led_white_Pin);
+    printf("White running at: %lu ms\r\n", HAL_GetTick());
+
+}
+void task_pink (void){
+    HAL_GPIO_TogglePin(led_pink_GPIO_Port, led_pink_Pin);
+
+    printf("Pink running at: %lu ms\r\n", HAL_GetTick());
+
+
+}
+
+void task_red(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_red_Pin);
+	printf("Red running at: %lu ms\r\n", HAL_GetTick());
+
+}
+
+void task_yellow(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_yellow_Pin);
+	printf("Yellow running at: %lu ms\r\n", HAL_GetTick());
+
+}
+
+void task_green(void)
+{
+	HAL_GPIO_TogglePin(GPIOA, led_green_Pin);
+	printf("Green running at: %lu ms\r\n", HAL_GetTick());
+}
+void task_led(void)
+{
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+}
+
+

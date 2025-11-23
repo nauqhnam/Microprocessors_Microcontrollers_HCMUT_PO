@@ -1,0 +1,22 @@
+/*
+ * tasks.h
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: ASUS
+ */
+
+#ifndef INC_TASKS_H_
+#define INC_TASKS_H_
+
+#include "main.h"
+#include "stdint.h"
+#include "schedule.h"
+
+void task_white (void);
+void task_red (void);
+void task_yellow (void);
+void task_green (void);
+void addTask(void);
+void task_led (void);
+void task-
+#endif /* INC_TASKS_H_ */

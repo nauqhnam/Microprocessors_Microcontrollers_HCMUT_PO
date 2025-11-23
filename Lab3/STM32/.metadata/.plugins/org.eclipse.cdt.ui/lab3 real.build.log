@@ -1,0 +1,10 @@
+18:46:10 **** Build of configuration Debug for project lab3 real ****
+make -j16 all 
+arm-none-eabi-size   lab3\ real.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11040	    196	   1732	  12968	   32a8	lab3 real.elf
+Finished building: default.size.stdout
+ 
+
+18:46:12 Build Finished. 0 errors, 0 warnings. (took 1s.374ms)
+

@@ -1,0 +1,7 @@
+timer.c:17:6:set1	16	static
+timer.c:22:6:set2	16	static
+timer.c:27:6:set3	16	static
+timer.c:32:6:set4	16	static
+timer.c:36:6:set5	16	static
+timer.c:41:6:resetTimer	16	static
+timer.c:78:6:timerRun	4	static

@@ -1,0 +1,5 @@
+segment.c:21:6:set7SegH	24	static
+segment.c:34:6:set7SegV	24	static
+segment.c:48:6:scan7Seg	16	static
+segment.c:72:6:updateSegment	24	static
+segment.c:79:6:updateSegment2Digits	16	static
